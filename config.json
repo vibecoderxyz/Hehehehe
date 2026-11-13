@@ -1,0 +1,15 @@
+{
+  "panel": {
+    "maxAvatarBytes": 2097152,
+    "pairingTimeoutMs": 20000,
+    "pairingWaitMs": 90000
+  },
+  "security": {
+    "sessionMaxAgeMs": 2592000000,
+    "pepper": "",
+    "rateLimit": {
+      "windowMs": 60000,
+      "max": 120
+    }
+  }
+}
