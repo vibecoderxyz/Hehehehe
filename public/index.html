@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<meta name="theme-color" content="#050505"/>
+<meta name="color-scheme" content="dark"/>
+<title>CIPHER BVG</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;width:100%;min-height:100%;background:#050505;color:#C5C5C5}body{min-height:100dvh;display:grid;place-items:center;font:12px system-ui,sans-serif}.gate{display:flex;align-items:center;gap:10px;letter-spacing:.16em;text-transform:uppercase;color:#888}.loader{width:14px;height:14px;border:1px solid rgba(212,175,55,.22);border-top-color:#D4AF37;border-radius:50%;animation:turn .8s linear infinite;box-shadow:0 0 10px rgba(212,175,55,.12)}@keyframes turn{to{transform:rotate(360deg)}}
+
+/* CIPHER BVG — cinematic black metallic glass and controlled golden illumination */
+:root{
+ --bg:#050505;--surface:#0A0A0A;--raise:#111111;--panel:#15130E;
+ --accent:#D4AF37;--accent-hi:#FFD700;--accent-dim:rgba(212,175,55,.42);
+ --accent-soft:rgba(255,201,74,.58);--accent-faint:rgba(212,175,55,.075);
+ --line:rgba(212,175,55,.12);--line-2:rgba(212,175,55,.23);
+ --text:#FFFFFF;--muted:#C5C5C5;--dim:#888888;--danger:#8F6500;--ok:#FFC94A;
+}
+html,body{background-color:#050505;color:#C5C5C5}
+body{background-image:radial-gradient(ellipse 70% 42% at 50% -7%,rgba(212,175,55,.08),transparent 70%),radial-gradient(ellipse 58% 35% at 50% 104%,rgba(143,101,0,.045),transparent 73%),linear-gradient(180deg,#050505 0%,#0A0A0A 55%,#050505 100%)!important}
+body::before{opacity:.18!important;background-size:64px 64px!important;mask-image:radial-gradient(ellipse at 50% 22%,#000 0%,transparent 75%)!important;-webkit-mask-image:radial-gradient(ellipse at 50% 22%,#000 0%,transparent 75%)!important}
+body::after{background:radial-gradient(ellipse 48% 30% at 50% 0%,rgba(255,201,74,.075),transparent 72%),radial-gradient(ellipse 60% 32% at 50% 100%,rgba(143,101,0,.035),transparent 75%),radial-gradient(ellipse at 50% 48%,transparent 46%,rgba(0,0,0,.45) 100%)!important}
+.card,.identity,.modal-card,.splash::before{
+ background:linear-gradient(145deg,rgba(27,26,22,.88),rgba(17,17,17,.91) 50%,rgba(10,10,10,.95))!important;
+ border-color:rgba(212,175,55,.24)!important;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.075),inset 0 -1px 0 rgba(212,175,55,.055),inset 0 0 24px rgba(255,201,74,.018),0 18px 48px rgba(0,0,0,.62),0 0 20px rgba(212,175,55,.045)!important;
+ backdrop-filter:blur(16px) saturate(118%);-webkit-backdrop-filter:blur(16px) saturate(118%);
+}
+.card::before,.identity::before,.modal-card::before{background:linear-gradient(90deg,transparent,rgba(255,215,0,.54),rgba(255,201,74,.34),transparent)!important;opacity:.72!important;box-shadow:0 0 10px rgba(255,201,74,.16)}
+.card:hover{border-color:rgba(255,201,74,.32)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.085),inset 0 0 25px rgba(255,201,74,.025),0 20px 52px rgba(0,0,0,.65),0 0 23px rgba(212,175,55,.065)!important}
+.appbar,.nav{background:linear-gradient(180deg,rgba(17,17,17,.94),rgba(7,7,7,.92))!important;border-color:rgba(212,175,55,.22)!important;box-shadow:0 12px 32px rgba(0,0,0,.48),0 0 16px rgba(212,175,55,.035)!important;backdrop-filter:blur(20px) saturate(125%);-webkit-backdrop-filter:blur(20px) saturate(125%)}
+.appbar::after,.nav::before{background:linear-gradient(90deg,transparent,rgba(255,201,74,.56),transparent)!important;box-shadow:0 0 8px rgba(255,201,74,.13)}
+.btn:not(.ghost):not(.danger){background:linear-gradient(180deg,#FFE07A 0%,#D4AF37 48%,#8F6500 100%)!important;border:1px solid rgba(255,215,0,.62)!important;color:#11100B!important;text-shadow:0 1px rgba(255,255,255,.22);box-shadow:inset 0 1px 0 rgba(255,255,255,.48),inset 0 -2px 0 rgba(75,52,0,.28),0 0 12px rgba(212,175,55,.20),0 8px 23px rgba(0,0,0,.32)!important}
+.btn:not(:disabled):hover{filter:brightness(1.07);box-shadow:inset 0 1px 0 rgba(255,255,255,.62),0 0 17px rgba(255,201,74,.30),0 11px 27px rgba(0,0,0,.38)!important}
+.btn.ghost,.top-link,.link,.logout{background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(8,8,8,.40))!important;border-color:rgba(212,175,55,.28)!important;color:#C5C5C5!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.045)!important}
+.btn.ghost:hover,.top-link:hover,.link:hover,.logout:hover{border-color:rgba(255,201,74,.52)!important;background:linear-gradient(145deg,rgba(212,175,55,.09),rgba(8,8,8,.42))!important;box-shadow:0 0 14px rgba(212,175,55,.10)!important}
+input,select,textarea,.inp{background:linear-gradient(140deg,rgba(255,255,255,.035),rgba(5,5,5,.34))!important;border-color:rgba(197,197,197,.16)!important;color:#FFF!important}
+input::placeholder,textarea::placeholder{color:#888!important}
+input:focus,select:focus,textarea:focus,.inp:focus-within{border-color:rgba(255,215,0,.60)!important;box-shadow:0 0 0 1px rgba(212,175,55,.14),0 0 16px rgba(255,201,74,.09)!important}
+.card-title i,.head h1 i,.head .mark,.nav a i,.tag.gold,.badge,.chip.ok{color:#D4AF37}
+.nav a i{filter:drop-shadow(0 0 3px rgba(212,175,55,.15));transition:color .2s,filter .2s,transform .2s}
+.nav a:hover i{color:#FFC94A;filter:drop-shadow(0 0 6px rgba(255,201,74,.32));transform:translateY(-1px)}
+.nav a.active i{color:#FFD700!important;filter:drop-shadow(0 0 7px rgba(255,215,0,.38))!important}
+.nav a.active span{color:#F5D76E!important}
+.mark{border-color:rgba(212,175,55,.34)!important;background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(5,5,5,.5))!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.09),0 0 13px rgba(212,175,55,.075)!important}
+.mark img,.brand-mark,#logo{filter:drop-shadow(0 1px 1px rgba(255,255,255,.24)) drop-shadow(0 0 5px rgba(255,215,0,.34)) drop-shadow(0 0 13px rgba(212,175,55,.16))!important}
+.top-brand .brand-mark{animation:logoLustre 7s ease-in-out infinite}
+@keyframes logoLustre{0%,100%{filter:drop-shadow(0 1px 1px rgba(255,255,255,.18)) drop-shadow(0 0 4px rgba(212,175,55,.25))}50%{filter:drop-shadow(0 1px 1px rgba(255,255,255,.3)) drop-shadow(0 0 8px rgba(255,215,0,.42))}}
+.cmd,.term,.log,.cmd-list,.code-box,.code,.uid,.sess-row{background:linear-gradient(145deg,rgba(5,5,5,.88),rgba(17,17,17,.75))!important;border-color:rgba(212,175,55,.20)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.035),0 6px 20px rgba(0,0,0,.24)}
+.card-title,.head h1,.card-head h1{color:#FFF}
+.card-title em,.head h1 em,.wordmark em{color:#FFD700}
+body,.card,.nav,.appbar{-webkit-font-smoothing:antialiased}
+::selection{background:rgba(212,175,55,.34);color:#FFF}
+@media(prefers-reduced-motion:reduce){.top-brand .brand-mark{animation:none!important}}
+
+
+/* Professional signature finish: precise hierarchy, architectural edges, restrained light */
+:root{--gold-metal:#D4AF37;--gold-light:#FFD700;--gold-warm:#FFC94A;--gold-deep:#8F6500;--glass-black:rgba(12,12,11,.91);--silver-line:rgba(255,255,255,.075)}
+body{letter-spacing:.005em}
+.wrap,.shell{isolation:isolate}
+/* etched gold grid becomes a quiet geometric signature */
+body::before{background-image:linear-gradient(rgba(212,175,55,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.06) 1px,transparent 1px)!important;background-size:56px 56px!important;opacity:.13!important;mask-image:radial-gradient(ellipse at 50% 20%,#000 0%,transparent 68%)!important;-webkit-mask-image:radial-gradient(ellipse at 50% 20%,#000 0%,transparent 68%)!important}
+/* Fine double-edge glass, warm internal reflection and deep but clean lift */
+.card,.identity,.modal-card{position:relative;border-radius:15px!important;background:linear-gradient(138deg,rgba(28,27,23,.94) 0%,rgba(17,17,16,.96) 42%,rgba(9,9,9,.96) 100%)!important;border:1px solid rgba(212,175,55,.22)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.085),inset 1px 0 0 rgba(255,255,255,.018),inset 0 -1px 0 rgba(212,175,55,.055),0 16px 42px rgba(0,0,0,.48),0 3px 9px rgba(0,0,0,.36)!important;transition:border-color .24s ease,box-shadow .24s ease,transform .24s ease!important}
+.card::after,.identity::after{content:'';position:absolute;pointer-events:none;inset:1px;border-radius:inherit;background:linear-gradient(115deg,rgba(255,255,255,.035),transparent 23%,transparent 74%,rgba(212,175,55,.025));opacity:.8}
+.card:hover,.identity:hover{border-color:rgba(255,201,74,.34)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 20px 48px rgba(0,0,0,.56),0 0 22px rgba(212,175,55,.055)!important;transform:translateY(-1px)}
+.card-title{font-size:10px!important;letter-spacing:.18em!important;color:#E9E5D8!important}
+.card-title i,.head h1 i{color:#D4AF37!important;text-shadow:0 0 8px rgba(212,175,55,.24)}
+.head h1{letter-spacing:-.025em;text-shadow:0 2px 18px rgba(255,255,255,.045)}
+.head p,.desc,.card-sub{color:#A7A7A3!important}
+/* gold marker rule gives each content header a deliberate editorial anchor */
+.head h1{position:relative}
+.head h1::after{content:'';display:block;width:38px;height:2px;margin-top:9px;border-radius:2px;background:linear-gradient(90deg,#FFD700,#D4AF37 60%,transparent);box-shadow:0 0 8px rgba(212,175,55,.22)}
+.appbar,.nav{border-color:rgba(212,175,55,.20)!important;box-shadow:0 10px 28px rgba(0,0,0,.46),inset 0 1px 0 rgba(255,255,255,.045)!important}
+.brand{letter-spacing:.015em}.brand b{color:#F3F1E9!important}.brand small{color:#8F8F89!important;letter-spacing:.09em}
+.top-brand .brand-mark,.mark img{filter:drop-shadow(0 1px 1px rgba(255,255,255,.27)) drop-shadow(0 0 6px rgba(255,215,0,.36)) drop-shadow(0 0 15px rgba(212,175,55,.16))!important}
+/* beveled gold controls; restrained light only on interaction */
+.btn{border-radius:10px!important;letter-spacing:.025em;min-height:40px}
+.btn:not(.ghost):not(.danger){background:linear-gradient(180deg,#FFE58A 0%,#E2BD4A 27%,#C59B27 70%,#8F6500 100%)!important;border-color:rgba(255,215,0,.63)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.55),inset 0 -1px 0 rgba(75,52,0,.32),0 5px 15px rgba(0,0,0,.26),0 0 10px rgba(212,175,55,.13)!important}
+.btn:not(:disabled):hover{transform:translateY(-1px);filter:brightness(1.055);box-shadow:inset 0 1px 0 rgba(255,255,255,.68),0 7px 19px rgba(0,0,0,.32),0 0 16px rgba(255,201,74,.24)!important}
+.btn:not(:disabled):active{transform:translateY(0) scale(.99)}
+.btn.ghost,.top-link,.link,.logout{border-radius:9px!important;background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(12,12,12,.38))!important;border-color:rgba(212,175,55,.25)!important}
+input,select,textarea,.inp{border-radius:10px!important;box-shadow:inset 0 1px 3px rgba(0,0,0,.32)!important}
+input:focus,select:focus,textarea:focus,.inp:focus-within{border-color:rgba(255,215,0,.66)!important;box-shadow:inset 0 1px 3px rgba(0,0,0,.25),0 0 0 1px rgba(212,175,55,.14),0 0 15px rgba(255,201,74,.10)!important}
+:focus-visible{outline:2px solid rgba(255,215,0,.68)!important;outline-offset:3px}
+/* polished icon tokens and clear active navigation */
+.nav a i{color:rgba(212,175,55,.68)!important;transition:color .2s ease,filter .2s ease,transform .2s ease}
+.nav a:hover i{color:#FFC94A!important;filter:drop-shadow(0 0 5px rgba(255,201,74,.3));transform:translateY(-1px)}
+.nav a.active i{color:#FFD700!important;filter:drop-shadow(0 0 7px rgba(255,215,0,.42))!important}
+.nav a.active span{color:#F5D76E!important}
+.nav a.active::after{height:2px!important;box-shadow:0 0 9px rgba(255,215,0,.45)!important}
+/* quiet holographic sheen, one slow sweep rather than constant noisy neon */
+@keyframes goldSheen{0%,72%,100%{transform:translateX(-130%) skewX(-15deg);opacity:0}78%{opacity:.5}92%{transform:translateX(230%) skewX(-15deg);opacity:0}}
+.logo-mark,.ring-glow{will-change:opacity}
+.top-brand .brand-mark{animation:brandGlow 6s ease-in-out infinite}
+@keyframes brandGlow{0%,100%{filter:drop-shadow(0 0 4px rgba(212,175,55,.22))}50%{filter:drop-shadow(0 0 8px rgba(255,215,0,.4))}}
+.bot-head,.bot-body{box-shadow:inset 0 1px 0 rgba(255,255,255,.2),inset 0 -8px 16px rgba(0,0,0,.42),0 10px 22px rgba(0,0,0,.4),0 0 12px rgba(212,175,55,.08)!important}
+.bot-visor{border-color:rgba(255,215,0,.38)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 0 13px rgba(212,175,55,.12)!important}
+/* screens with data collections remain comfortable on narrow mobile */
+@media(max-width:480px){.card,.identity{border-radius:13px!important}.card-title{letter-spacing:.14em!important}.nav a i{font-size:14px}.btn{min-height:42px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001s!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.001s!important}.card:hover,.identity:hover,.btn:not(:disabled):hover{transform:none}}
+
+</style>
+</head>
+<body>
+<div class="gate" role="status" aria-live="polite"><span class="loader" aria-hidden="true"></span><span>Opening secure access</span></div>
+<noscript><p><a href="/login.html" style="color:#FFD700">Continue to login</a></p></noscript>
+<script>
+fetch('/api/session',{credentials:'same-origin'}).then(function(r){return r.json()}).then(function(d){location.replace(d&&d.loggedIn?'/pair.html':'/login.html')}).catch(function(){location.replace('/login.html')});
+</script>
+</body>
+</html>

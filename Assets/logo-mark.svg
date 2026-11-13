@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="CIPHER BVG emblem">
+  <defs>
+    <linearGradient id="edge" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F2F4F7"/>
+      <stop offset=".28" stop-color="#C7CBD1"/>
+      <stop offset=".54" stop-color="#868D96"/>
+      <stop offset=".76" stop-color="#DDE1E6"/>
+      <stop offset="1" stop-color="#9AA1AA"/>
+    </linearGradient>
+    <linearGradient id="plate" x1=".1" y1="0" x2=".9" y2="1">
+      <stop offset="0" stop-color="#242930"/>
+      <stop offset=".42" stop-color="#14171C"/>
+      <stop offset="1" stop-color="#0A0C0F"/>
+    </linearGradient>
+    <linearGradient id="arc" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFC247"/>
+      <stop offset=".55" stop-color="#FF8A00"/>
+      <stop offset="1" stop-color="#FFB03A"/>
+    </linearGradient>
+    <linearGradient id="core" x1="0" y1="0" x2=".35" y2="1">
+      <stop offset="0" stop-color="#FFE9BE"/>
+      <stop offset=".42" stop-color="#FFC247"/>
+      <stop offset="1" stop-color="#FF8A00"/>
+    </linearGradient>
+    <linearGradient id="sheen" x1="0" y1="0" x2=".7" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity=".26"/>
+      <stop offset=".55" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="oct">
+      <path d="M42.72 6.13 57.87 21.28v21.44L42.72 57.87H21.28L6.13 42.72V21.28L21.28 6.13Z"/>
+    </clipPath>
+  </defs>
+
+  <!-- machined octagonal frame -->
+  <path d="M42.72 6.13 57.87 21.28v21.44L42.72 57.87H21.28L6.13 42.72V21.28L21.28 6.13Z"
+        fill="url(#plate)" stroke="url(#edge)" stroke-width="2.1" stroke-linejoin="round"/>
+
+  <!-- diagonal sheen across the upper plate, clipped to the frame -->
+  <g clip-path="url(#oct)">
+    <path d="M-8 -8H40L-8 40Z" fill="url(#sheen)"/>
+  </g>
+
+  <!-- inner bevel: second metal step -->
+  <path d="M40.4 11.9 52.1 23.6v16.8L40.4 52.1H23.6L11.9 40.4V23.6L23.6 11.9Z"
+        fill="none" stroke="#C7CBD1" stroke-opacity=".26" stroke-width=".9" stroke-linejoin="round"/>
+
+  <!-- amber "C" aperture, mouth held to the right -->
+  <path d="M45 23.56A15.5 15.5 0 1 0 45 40.44"
+        fill="none" stroke="#FF8A00" stroke-opacity=".30" stroke-width="6.2" stroke-linecap="round"/>
+  <path d="M45 23.56A15.5 15.5 0 1 0 45 40.44"
+        fill="none" stroke="url(#arc)" stroke-width="2.8" stroke-linecap="round"/>
+
+  <!-- golden cipher core -->
+  <path d="M32 22.4 38.2 32 32 41.6 25.8 32Z" fill="url(#core)"/>
+  <path d="M32 22.4 38.2 32H32Z" fill="#FFF4D6" fill-opacity=".6"/>
+  <path d="M32 22.4 38.2 32 32 41.6 25.8 32Z" fill="none" stroke="#8A4E00" stroke-opacity=".4" stroke-width=".7"/>
+</svg>
