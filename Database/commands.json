@@ -1,0 +1,102 @@
+{
+  "commands": [
+    {
+      "name": "help",
+      "description": "Show available commands",
+      "usage": "/help",
+      "example": "/help",
+      "level": "public"
+    },
+    {
+      "name": "pair",
+      "description": "Show pairing instructions and status",
+      "usage": "/pair",
+      "example": "/pair",
+      "level": "registered"
+    },
+    {
+      "name": "status",
+      "description": "Show panel & WhatsApp session status",
+      "usage": "/status",
+      "example": "/status",
+      "level": "registered"
+    },
+    {
+      "name": "profile",
+      "description": "Show your account profile",
+      "usage": "/profile",
+      "example": "/profile",
+      "level": "registered"
+    },
+    {
+      "name": "cmdlist",
+      "description": "List all registered commands",
+      "usage": "/cmdlist",
+      "example": "/cmdlist",
+      "level": "registered"
+    },
+    {
+      "name": "delay",
+      "description": "Launch delay attack on a target number",
+      "usage": "/delay <number>",
+      "example": "/delay 2348012345678",
+      "level": "premium"
+    },
+    {
+      "name": "invis",
+      "description": "Launch invisible attack on a target number",
+      "usage": "/invis <number>",
+      "example": "/invis 2348012345678",
+      "level": "premium"
+    },
+    {
+      "name": "blank",
+      "description": "Launch blank attack (Android) on a target number",
+      "usage": "/blank <number>",
+      "example": "/blank 2348012345678",
+      "level": "premium"
+    },
+    {
+      "name": "blank-ios",
+      "description": "Launch blank attack (iOS) on a target number",
+      "usage": "/blank-ios <number>",
+      "example": "/blank-ios 2348012345678",
+      "level": "premium"
+    },
+    {
+      "name": "fc",
+      "description": "Launch FC attack on a target number",
+      "usage": "/fc <number>",
+      "example": "/fc 2348012345678",
+      "level": "premium"
+    },
+    {
+      "name": "group-delay",
+      "description": "Launch delay attack on a group",
+      "usage": "/group-delay <groupID>",
+      "example": "/group-delay 120363xxxxxxxxxx",
+      "level": "premium"
+    },
+    {
+      "name": "group-blank",
+      "description": "Launch blank attack on a group",
+      "usage": "/group-blank <groupID>",
+      "example": "/group-blank 120363xxxxxxxxxx",
+      "level": "premium"
+    },
+    {
+      "name": "group-invis",
+      "description": "Launch invisible attack on a group",
+      "usage": "/group-invis <groupID>",
+      "example": "/group-invis 120363xxxxxxxxxx",
+      "level": "premium"
+    },
+    {
+      "name": "group-ban",
+      "description": "Attempt group ban",
+      "usage": "/group-ban <groupID>",
+      "example": "/group-ban 120363xxxxxxxxxx",
+      "level": "admin"
+    }
+  ]
+}
