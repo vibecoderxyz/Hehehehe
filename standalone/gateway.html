@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#e6e2d8" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Verifying your link — Supashort</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;700&family=Fredoka:wght@600;700&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --ink:#18181b;--muted:#71717a;--sans:"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;--display:"Fredoka",cursive,sans-serif;
+  --ease:cubic-bezier(.34,1.56,.64,1);
+}
+*,*::before,*::after{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%;line-height:1.5}
+body{
+  margin:0;min-height:100dvh;color:var(--ink);font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;position:relative;overflow-x:clip;
+  background:radial-gradient(circle at 50% 25%,#e6e2d8 0%,#dbd5c9 55%,#cfc8ba 100%);
+  display:grid;place-items:center;padding:16px;
+}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:repeating-linear-gradient(-28deg,#ffffff0b 0 40px,#0000 40px 140px)}
+input,button,textarea{font-family:inherit}
+button{cursor:pointer;border:0;background:none;color:inherit}
+h1,h2,h3,p{margin:0}
+.blob{position:absolute;border-radius:9999px;filter:blur(28px);pointer-events:none;z-index:0;contain:strict}
+@media(max-width:768px){.blob{filter:blur(20px);opacity:.35}}
+
+/* Reference shell: <main class="… p-4"> <div class="clay-board rounded-[28px] p-6 sm:p-8 w-full max-w-sm"> */
+.shell{position:relative;z-index:1;width:100%;max-width:384px}
+.card{
+  position:relative;border-radius:28px;padding:24px;text-align:center;
+  background:linear-gradient(135deg,#ffffff7a 0%,#f4f0e83d 50%,#fff6 100%);
+  border:2.5px solid #ffffffe0;
+  -webkit-backdrop-filter:blur(16px) saturate(140%);backdrop-filter:blur(16px) saturate(140%);
+  box-shadow:0 18px 34px -8px #2d282042,0 4px 12px #00000014,
+    inset 0 3px 6px #fffffff2,inset 0 -4px 8px #463e3233,
+    inset 3px 0 6px #82d2ff47,inset -3px 0 6px #ff8cd23d;
+  animation:rise .34s cubic-bezier(.22,1,.36,1) both;
+}
+@media(min-width:640px){.card{padding:32px}}
+.card-label{font-size:9px;font-weight:900;letter-spacing:.2em;text-transform:uppercase;
+  color:#71717a;text-align:center;margin:0 0 12px}
+.foot{font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  color:#a1a1aa;text-align:center;margin:20px 0 0}
+@keyframes rise{from{opacity:0;transform:translateY(16px) scale(.985)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes pop{0%{transform:scale(.6);opacity:0}60%{transform:scale(1.06)}100%{transform:scale(1);opacity:1}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulseRing{0%{transform:scale(.9);opacity:.7}70%{transform:scale(1.25);opacity:0}100%{opacity:0}}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+.badge{display:inline-flex;align-items:center;gap:4px;border-radius:9999px;padding:4px 10px;
+  font-size:9px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#fff}
+.badge-teal{background:linear-gradient(135deg,#14b8a6,#0d9488);box-shadow:0 6px 12px -3px #0d948880,inset 0 2px 4px #ffffff59}
+.badge-slate{background:linear-gradient(135deg,#64748b,#334155);box-shadow:0 6px 12px -3px #33415580,inset 0 2px 4px #ffffff59}
+.badge-blue{background:linear-gradient(135deg,#3b82f6,#1d4ed8);box-shadow:0 6px 12px -3px #1d4ed880,inset 0 2px 4px #ffffff59}
+.badge-rose{background:linear-gradient(135deg,#f43f5e,#be123c);box-shadow:0 6px 12px -3px #be123c80,inset 0 2px 4px #ffffff59}
+.badge-amber{background:linear-gradient(135deg,#f59e0b,#b45309);box-shadow:0 6px 12px -3px #b4530980,inset 0 2px 4px #ffffff59}
+
+.orb{display:inline-flex;align-items:center;justify-content:center;position:relative;overflow:hidden;
+  border:2px solid #ffffffe0;border-radius:9999px;transition:all .22s var(--ease);
+  box-shadow:0 12px 22px -4px #231e1657,0 3px 6px #00000029,inset 0 4px 8px #ffffffeb,inset 0 -6px 10px #00000047}
+.orb::before{content:"";position:absolute;z-index:3;pointer-events:none;top:6%;left:14%;width:56%;height:32%;
+  border-radius:9999px;transform:rotate(-14deg);background:linear-gradient(#ffffffe0 0%,#ffffff0d 100%)}
+.orb>*{position:relative;z-index:10}
+.orb-green{color:#fff;background:radial-gradient(circle at 35% 30%,#48b899 0%,#1d755d 65%,#0f4737 100%);
+  box-shadow:0 12px 24px -4px #1a735a80,inset 0 4px 8px #ffffffd9,inset 0 -6px 12px #083024a6}
+.orb-blue{color:#fff;background:radial-gradient(circle at 35% 30%,#5b7fff 0%,#2b44b8 62%,#1a297a 100%);
+  box-shadow:0 12px 24px -4px #253caf8c,inset 0 4px 8px #ffffffe6,inset 0 -6px 12px #0a1244a6}
+
+.input{width:100%;border-radius:9999px;padding:12px 16px;font-size:13px;font-weight:600;color:#111827;
+  background:#ffffffb8;border:2px solid #fffffff2;
+  box-shadow:inset 0 3px 6px #00000014,inset 0 -2px 4px #fffc,0 4px 10px #0000000a;outline:none}
+.input::placeholder{color:#a1a1aa;font-weight:500}
+.input:focus{border-color:#93c5fd;box-shadow:inset 0 3px 6px #00000014,0 0 0 3px #3b82f62e}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;width:100%;
+  border-radius:9999px;padding:13px 20px;font-size:12px;font-weight:900;letter-spacing:.06em;
+  text-transform:uppercase;transition:all .2s var(--ease);border:2px solid #fff;text-decoration:none}
+.btn:active{transform:scale(.97)}
+.btn:disabled{opacity:.55;pointer-events:none}
+.btn-primary{color:#fff;background:radial-gradient(circle at 35% 30%,#5b7fff 0%,#2b44b8 62%,#1a297a 100%);
+  box-shadow:0 12px 24px -6px #253caf8c,inset 0 3px 6px #ffffffe6,inset 0 -4px 8px #0a1244a6}
+.btn-green{color:#fff;background:radial-gradient(circle at 35% 30%,#48b899 0%,#1d755d 65%,#0f4737 100%);
+  box-shadow:0 12px 24px -6px #1a735a80,inset 0 3px 6px #ffffffd9,inset 0 -4px 8px #083024a6}
+.btn-ghost{color:#3f3f46;background:#ffffffb8;border:1.5px solid #ffffffe6;
+  box-shadow:0 4px 10px #0000000f,inset 0 2px 4px #ffffffe6}
+.btn-ghost:hover{background:#fff;color:#18181b}
+/* Reference: w-full py-2.5 rounded-full bg-white/70 border border-white/90 text-[11px]
+   font-black uppercase tracking-wider text-zinc-700 hover:bg-white */
+.btn-soft{color:#3f3f46;background:#ffffffb3;border:1px solid #ffffffe6;
+  font-size:11px;font-weight:900;letter-spacing:.05em;padding:10px 18px}
+.btn-soft:hover{background:#fff;color:#18181b}
+/* .orb-md = reference glass-orb w-14 h-14 (56px) with text-2xl */
+.orb-md{width:56px;height:56px;margin:0 auto 12px;font-size:24px;flex:0 0 auto}
+.socialTile{width:56px;height:56px;margin:0 auto 12px;border-radius:16px;background:#fff;
+  border:2px solid #fff;display:flex;align-items:center;justify-content:center;
+  font-size:26px;line-height:1;transition:box-shadow .2s}
+.socialTile svg,.socialTile img{width:28px;height:28px;display:block}
+.stack{margin-top:12px;display:flex;flex-direction:column;gap:8px}
+
+.step{display:none}
+.step.on{display:block;animation:fadeIn .3s ease-out both}
+.icon-circle{width:74px;height:74px;border-radius:9999px;display:grid;place-items:center;margin:0 auto 12px;
+  font-size:32px;position:relative;
+  background:linear-gradient(135deg,#fffffff2,#e1ebf8cc);border:2.5px solid #fff;
+  box-shadow:0 12px 28px -6px #231e1938,inset 0 2px 5px #fffffff2}
+.icon-circle::after{content:"";position:absolute;inset:-6px;border-radius:9999px;border:2px solid #3b82f666;
+  animation:pulseRing 2s ease-out infinite}
+h1{font-size:17px;font-weight:900;color:#18181b;letter-spacing:-.02em;line-height:1.25}
+.sub{font-size:11.5px;font-weight:600;color:#71717a;line-height:1.5;margin-top:5px}
+.mono{font-family:var(--mono)}
+.display{font-family:var(--display)}
+.spinner{width:44px;height:44px;border-radius:9999px;margin:0 auto;
+  border:3px solid #2563eb;border-top-color:transparent;animation:spin 1s linear infinite}
+/* Reference Spinner: text-[11px] font-black uppercase tracking-[0.18em] text-zinc-600 */
+.spinLabel{font-size:11px;font-weight:900;letter-spacing:.18em;text-transform:uppercase;
+  color:#52525b;margin:12px 0 0;text-align:center}
+.continueManual{display:inline-block;margin-top:12px;font-size:11px;font-weight:900;
+  letter-spacing:.05em;text-transform:uppercase;color:#1d4ed8;
+  text-decoration:underline;text-underline-offset:3px}
+.continueManual:hover{color:#1e3a8a}
+.preview{width:100%;border-radius:16px;border:2px solid #fff;display:block;
+  box-shadow:0 10px 22px -6px #00000047;background:#18181b}
+.cam{width:100%;border-radius:16px;border:2px solid #fff;background:#18181b;display:block;aspect-ratio:4/3;object-fit:cover}
+.err{font-size:11px;font-weight:800;color:#b91c1c;background:#fee2e2cc;border:1.5px solid #fecaca;
+  border-radius:14px;padding:9px 11px;text-align:left}
+.note{font-size:9.5px;font-weight:600;color:#a1a1aa;line-height:1.5;margin-top:10px}
+.skip{font-size:10.5px;font-weight:800;color:#71717a;text-decoration:underline;text-underline-offset:3px;
+  background:none;border:0;padding:6px;cursor:pointer}
+.skip:hover{color:#3f3f46}
+</style>
+</head>
+<body>
+<span class="blob" style="left:-10%;top:-8%;width:300px;height:300px;background:radial-gradient(circle,#8fc4ff8c,#8fc4ff00 70%)"></span>
+<span class="blob" style="right:-12%;bottom:-10%;width:320px;height:320px;background:radial-gradient(circle,#ffb3d98c,#ffb3d900 70%)"></span>
+
+<div class="shell">
+  <div class="card">
+    <p class="card-label" id="cardLabel">Secure Link</p>
+
+    <!-- not found — standalone-only (the reference 404s on the server instead) -->
+    <section class="step" id="s-missing">
+      <div class="icon-circle" style="font-size:30px">🔍</div>
+      <h1>Link not found</h1>
+      <p class="sub">This short link does not exist on this device, or it was deleted. Short links created in this browser are stored locally.</p>
+      <a class="btn btn-ghost" href="index.html" style="margin-top:14px">← Back to Control Center</a>
+    </section>
+
+    <!-- 3 · password -->
+    <section class="step" id="s-password">
+      <div class="orb orb-amber orb-md">🔒</div>
+      <h1>Password Protected</h1>
+      <p class="sub">This smart link is locked. Enter the password shared by the owner to continue.</p>
+      <div class="stack">
+        <input class="input" id="pwdInput" type="password" placeholder="Enter password" autocomplete="off" />
+        <p class="err" id="pwdErr" style="display:none"></p>
+        <button class="btn btn-primary" id="pwdGo">Unlock Link</button>
+      </div>
+    </section>
+
+    <!-- 4 · social gate -->
+    <section class="step" id="s-gate">
+      <div class="socialTile" id="gateTile"></div>
+      <h1 id="gateTitle">Verify on YouTube</h1>
+      <p class="sub" id="gateDesc">Complete the step below, then continue to your destination.</p>
+      <div class="stack">
+        <a class="btn btn-primary" id="gateVisit" href="#" target="_blank" rel="noopener">Verify &amp; Continue</a>
+        <button class="btn btn-soft" id="gateDone">I've completed the step — Continue</button>
+      </div>
+    </section>
+
+    <!-- 5 · capture (auto-runs on entry, mirrors the reference) -->
+    <section class="step" id="s-capture">
+      <div class="spinner"></div>
+      <p class="spinLabel" id="capSpinText">LOADING</p>
+      <p class="sub" id="capStatus">Preparing your destination…</p>
+
+      <div id="camBox" style="display:none;margin-top:12px">
+        <video class="cam" id="camVideo" autoplay playsinline muted></video>
+        <img class="preview" id="camShot" alt="Snapshot" style="display:none;margin-top:8px" />
+        <p class="err" id="camErr" style="display:none;margin-top:8px"></p>
+      </div>
+      <p class="err" id="gpsErr" style="display:none;margin-top:8px"></p>
+
+      <div style="margin-top:12px">
+        <button class="skip" id="capSkip">Skip verification</button>
+      </div>
+    </section>
+
+    <!-- 6 · loading / success -->
+    <section class="step" id="s-done">
+      <div class="spinner"></div>
+      <p class="spinLabel" id="doneSpinText">LOADING</p>
+      <p style="font-size:13px;font-weight:900;color:#18181b;margin-top:14px" id="doneTitle">Verification complete</p>
+      <p class="sub" id="doneSub">Redirecting you to <span class="mono" id="doneHost">your destination</span>…</p>
+      <a class="continueManual" id="destLink" href="#">Continue manually</a>
+      <p class="note" id="doneNote"></p>
+    </section>
+
+    <!-- 7 · expired -->
+    <section class="step" id="s-expired">
+      <div class="orb orb-red orb-md">⏳</div>
+      <h1>This link has expired</h1>
+      <p class="sub">The owner set an expiration date for <span class="mono">/<span id="expCode"></span></span>. Ask them for a fresh one.</p>
+    </section>
+
+    <p class="foot">Protected by Supashort · 3D Liquid Glass OS</p>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var KEY = "supashort.standalone.v1";
+  var params = new URLSearchParams(location.search);
+  var code = (params.get("c") || "").trim().toLowerCase();
+
+  function $(s, r) { return (r || document).querySelector(s); }
+/* ---------- social platforms (mirrors src/components/ui/SocialIcon.tsx) ---------- */
+  var PLATFORMS = [
+    { key: "youtube", label: "YouTube", brand: "#ff0033",
+      path: "M21.6 7.2s-.2-1.4-.8-2c-.8-.8-1.7-.8-2.1-.9C16.9 4.1 12 4.1 12 4.1h0s-4.9 0-6.7.2c-.4 0-1.3.1-2.1.9-.6.6-.8 2-.8 2S2.1 8.8 2.1 10.5v1.6c0 1.6.2 3.3.2 3.3s.2 1.4.8 2c.8.8 1.8.8 2.3.9 1.7.2 6.6.2 6.6.2s4.9 0 6.7-.2c.4-.1 1.3-.1 2.1-.9.6-.6.8-2 .8-2s.2-1.6.2-3.3v-1.6c0-1.7-.2-3.3-.2-3.3zM10 14.6V8.4l5.6 3.1L10 14.6z" },
+    { key: "instagram", label: "Instagram", brand: "#e1306c",
+      path: "M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.1.4.3 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.3 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.1-1 .3-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.3-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.1-.4-.3-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.3-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.1 1-.3 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 3.4a6.4 6.4 0 100 12.8 6.4 6.4 0 000-12.8zm0 10.6a4.2 4.2 0 110-8.4 4.2 4.2 0 010 8.4zm8.2-10.9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" },
+    { key: "twitter", label: "X / Twitter", brand: "#0f1419",
+      path: "M18.9 2.5h3.4l-7.4 8.5 8.7 11.5h-6.8l-5.3-7-6.1 7H2l7.9-9.1L1.5 2.5h7l4.8 6.4 5.6-6.4zm-1.2 18h1.9L6.3 4.4H4.3l13.4 16.1z" },
+    { key: "facebook", label: "Facebook", brand: "#1877f2",
+      path: "M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.9h2.54V9.85c0-2.52 1.5-3.9 3.78-3.9 1.1 0 2.24.19 2.24.19v2.46h-1.26c-1.24 0-1.63.78-1.63 1.57v1.89h2.78l-.45 2.9h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94z" },
+    { key: "whatsapp", label: "WhatsApp", brand: "#25d366",
+      path: "M17.5 14.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.7 1-.9 1.2-.2.2-.4.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.4.4-.6.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.2.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.5-.3zM12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2z" },
+    { key: "telegram", label: "Telegram", brand: "#229ed9",
+      path: "M21.9 4.3L18.6 20c-.2 1.1-.9 1.3-1.8.8l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.4-8.5c.4-.4-.1-.6-.6-.2L6.9 12.9 2 11.4c-1.1-.3-1.1-1 .2-1.5l18.2-7c.9-.3 1.7.2 1.5 1.4z" },
+    { key: "tiktok", label: "TikTok", brand: "#010101",
+      path: "M16.6 2h-3.1v13.2a2.7 2.7 0 11-2.7-2.7c.3 0 .5 0 .8.1V9.4a6 6 0 00-.8-.1 5.9 5.9 0 105.9 5.9V8.6a7.2 7.2 0 004.2 1.3V6.7a4.2 4.2 0 01-4.3-4.7z" },
+    { key: "snapchat", label: "Snapchat", brand: "#fffc00",
+      path: "M12.2 2c2.6 0 4.4 1.9 4.4 4.5 0 .8-.1 1.5-.1 2 .2.2.5.2.8.1.3-.1.6-.2.8-.1.4.1.6.4.6.8 0 .5-.6.8-1.2 1-.4.2-.8.3-.8.7 0 .5.8 1.5 1.6 2.1.6.5 1.3.8 1.9.9.3 0 .5.2.5.5 0 .6-.9 1-1.7 1.2-.2 0-.4.1-.4.3-.1.3-.1.7-.3.9-.2.1-.5.1-.8.1-.4 0-.9-.1-1.5.1-.5.2-1 1.6-2.6 1.6-.9 0-1.4-.4-2-.7-.4-.2-.7-.3-1.1-.3-.4 0-.8.2-1.2.4-.5.3-1 .6-1.9.6-1.6 0-2.1-1.4-2.6-1.6-.5-.2-1-.1-1.4-.1-.3 0-.6 0-.7-.1-.2-.2-.3-.6-.3-.9 0-.2-.2-.3-.4-.3-.8-.2-1.7-.6-1.7-1.2 0-.3.2-.5.5-.5.6-.1 1.3-.4 1.9-.9.8-.6 1.6-1.6 1.6-2.1 0-.4-.4-.5-.8-.7-.6-.2-1.2-.5-1.2-1 0-.4.2-.7.6-.8.2-.1.5 0 .8.1.3.1.6.1.8-.1 0-.5-.1-1.2-.1-2C7.6 3.9 9.4 2 12 2z" },
+    { key: "linkedin", label: "LinkedIn", brand: "#0a66c2",
+      path: "M20.4 3H3.6C2.7 3 2 3.7 2 4.6v14.8c0 .9.7 1.6 1.6 1.6h16.8c.9 0 1.6-.7 1.6-1.6V4.6c0-.9-.7-1.6-1.6-1.6zM8.3 18.3H5.6V9.8h2.7v8.5zM7 8.6a1.6 1.6 0 110-3.2 1.6 1.6 0 010 3.2zm11.3 9.7h-2.7v-4.4c0-1.1-.4-1.8-1.3-1.8-.8 0-1.2.5-1.4 1-.1.2-.1.4-.1.7v4.5h-2.7V9.8h2.7v1.2c.4-.6 1.1-1.4 2.5-1.4 1.8 0 3 1.2 3 3.6v5.1z" },
+    { key: "link", label: "Custom", brand: "#334155",
+      path: "M10 13a5 5 0 007.5.5l2-2a5 5 0 00-7-7L11 6m3 5a5 5 0 00-7.5-.5l-2 2a5 5 0 007 7L13 18" }
+  ];
+  // `link` is stroked (no fill); everything else is a filled brand glyph.
+  function platformMeta(raw) {
+    var k = String(raw == null ? "" : raw).trim();
+    for (var i = 0; i < PLATFORMS.length; i++) {
+      if (PLATFORMS[i].key === k) return PLATFORMS[i];
+    }
+    return PLATFORMS[PLATFORMS.length - 1];
+  }
+  function paintPlatform(host, key, colored) {
+    var p = platformMeta(key);
+    var NS = "http://www.w3.org/2000/svg";
+    var svg = document.createElementNS(NS, "svg");
+    svg.setAttribute("viewBox", "0 0 24 24");
+    svg.setAttribute("aria-hidden", "true");
+    var path = document.createElementNS(NS, "path");
+    path.setAttribute("d", p.path);
+    if (p.key === "link") {
+      svg.setAttribute("fill", "none");
+      svg.setAttribute("stroke", colored ? p.brand : "currentColor");
+      svg.setAttribute("stroke-width", "2");
+      svg.setAttribute("stroke-linecap", "round");
+      svg.setAttribute("stroke-linejoin", "round");
+    } else {
+      svg.setAttribute("fill", colored ? p.brand : "currentColor");
+    }
+    svg.appendChild(path);
+    host.textContent = "";
+    host.appendChild(svg);
+  }
+  function show(id) {
+    Array.prototype.forEach.call(document.querySelectorAll(".step"), function (s) { s.classList.remove("on"); });
+    var t = $("#" + id);
+    if (t) t.classList.add("on");
+  }
+  // Returns the URL if it is a plain http(s) link, otherwise "".
+  // Everything here comes from localStorage, which the visitor can edit.
+  function safeHttpUrl(raw) {
+    var s = String(raw == null ? "" : raw).trim();
+    if (!s) return "";
+    try {
+      var u = new URL(s);
+      return (u.protocol === "http:" || u.protocol === "https:") ? u.toString() : "";
+    } catch (e) { return ""; }
+  }
+  function loadDB() {
+    try {
+      var raw = localStorage.getItem(KEY);
+      return raw ? JSON.parse(raw) : { links: [], visitors: [], coupons: [], user: null, sound: true };
+    } catch (e) { return { links: [], visitors: [], coupons: [], user: null, sound: true }; }
+  }
+  function saveDB(db) {
+    try { localStorage.setItem(KEY, JSON.stringify(db)); }
+    catch (e) {
+      // Local storage is full (usually a captured photo). Retry without captures.
+      db.visitors.forEach(function (v) { delete v.photo; });
+      try { localStorage.setItem(KEY, JSON.stringify(db)); } catch (e2) {}
+    }
+  }
+
+  var DB = loadDB();
+  var link = null;
+  for (var i = 0; i < DB.links.length; i++) {
+    if (DB.links[i].code === code) { link = DB.links[i]; break; }
+  }
+
+  /* ---------- device profile ---------- */
+/* ---------- device profile ---------- */
+  // Full hardware fingerprint, mirroring the reference telemetry set:
+  // device model, GPU chipset (mapped from the WebGL renderer string), battery,
+  // touch points, RAM, network type, colour depth, language and timezone.
+  // Everything is read locally in the browser; nothing leaves this device.
+
+  // Map a raw GPU model code to a human-readable chipset name.
+  function humanGpu(renderer) {
+    if (!renderer || renderer === "Unknown" || renderer === "Generic") return "Not Detected";
+    var m;
+    if (/mali[- ]?g720/i.test(renderer)) return "ARM Mali-G720 (MediaTek Dimensity 9300)";
+    if (/mali[- ]?g715/i.test(renderer)) return "ARM Mali-G715 (MediaTek Dimensity 9200)";
+    if (/mali[- ]?g710/i.test(renderer)) return "ARM Mali-G710 (Dimensity 9000 / Tensor)";
+    if (/mali[- ]?g77/i.test(renderer)) return "ARM Mali-G77 (MediaTek Dimensity 8050)";
+    if (/mali[- ]?g68/i.test(renderer)) return "ARM Mali-G68 (Dimensity 1080 / Exynos)";
+    if (/mali[- ]?g57/i.test(renderer)) return "ARM Mali-G57 (Dimensity 700 / Helio G99)";
+    if (/mali[- ]?g52/i.test(renderer)) return "ARM Mali-G52 (Helio G88 / G85)";
+    if (/mali/i.test(renderer)) {
+      m = renderer.match(/Mali-[A-Za-z0-9\s]+/i);
+      return m ? "ARM " + m[0] : "ARM Mali GPU";
+    }
+    if (/adreno/i.test(renderer)) {
+      m = renderer.match(/Adreno\s*(?:\(TM\))?\s*(\d+)/i);
+      var n = m ? m[1] : "";
+      if (n === "750") return "Qualcomm Adreno 750 (Snapdragon 8 Gen 3)";
+      if (n === "740") return "Qualcomm Adreno 740 (Snapdragon 8 Gen 2)";
+      if (n === "730") return "Qualcomm Adreno 730 (Snapdragon 8 Gen 1)";
+      if (n === "660") return "Qualcomm Adreno 660 (Snapdragon 888)";
+      if (n === "650") return "Qualcomm Adreno 650 (Snapdragon 865)";
+      if (n === "642" || n === "642L") return "Qualcomm Adreno " + n + " (Snapdragon 778G)";
+      if (n === "619") return "Qualcomm Adreno 619 (Snapdragon 695)";
+      if (n === "610") return "Qualcomm Adreno 610 (Snapdragon 680)";
+      return n ? "Qualcomm Adreno " + n : "Qualcomm Adreno GPU";
+    }
+    if (/apple/i.test(renderer)) return "Apple Silicon GPU";
+    if (/powervr/i.test(renderer)) {
+      m = renderer.match(/PowerVR\s*[A-Za-z0-9]+/i);
+      return m ? m[0] : "PowerVR GPU";
+    }
+    if (/intel/i.test(renderer)) {
+      m = renderer.match(/Intel\(R\)\s*[^,\)]+/i) || renderer.match(/Intel\s*[^,\)]+/i);
+      return m ? m[0].trim() : "Intel Graphics";
+    }
+    if (/nvidia|geforce|rtx|gtx/i.test(renderer)) {
+      m = renderer.match(/(GeForce\s*[^,\)]+|RTX\s*[^,\)]+|GTX\s*[^,\)]+)/i);
+      return m ? "NVIDIA " + m[0].trim() : "NVIDIA GeForce GPU";
+    }
+    if (/amd|radeon/i.test(renderer)) {
+      m = renderer.match(/Radeon\s*[^,\)]+/i);
+      return m ? "AMD " + m[0].trim() : "AMD Radeon GPU";
+    }
+    return renderer
+      .replace(/^ANGLE \(([^,]+),\s*([^,\)]+).*\)$/, "$1 — $2")
+      .replace(/^Google Inc\. \((.+)\)$/, "$1")
+      .trim() || renderer;
+  }
+
+  // Turn a model code (SM-S928B, 23124RN87G, …) into a friendly device name.
+  function humanModel(raw) {
+    if (!raw) return "";
+    var t = String(raw).trim();
+    var map = [
+      [/^SM-S928/i, "Samsung Galaxy S24 Ultra"],
+      [/^SM-S926/i, "Samsung Galaxy S24+"],
+      [/^SM-S921/i, "Samsung Galaxy S24"],
+      [/^SM-S918/i, "Samsung Galaxy S23 Ultra"],
+      [/^SM-S916/i, "Samsung Galaxy S23+"],
+      [/^SM-S911/i, "Samsung Galaxy S23"],
+      [/^SM-S908/i, "Samsung Galaxy S22 Ultra"],
+      [/^SM-G998/i, "Samsung Galaxy S21 Ultra"],
+      [/^SM-G991/i, "Samsung Galaxy S21"],
+      [/^SM-A556/i, "Samsung Galaxy A55"],
+      [/^SM-A546/i, "Samsung Galaxy A54"],
+      [/^SM-A536/i, "Samsung Galaxy A53"],
+      [/^SM-A356/i, "Samsung Galaxy A35"],
+      [/^SM-A346/i, "Samsung Galaxy A34"],
+      [/^SM-A256/i, "Samsung Galaxy A25"],
+      [/^SM-A155|^SM-A156/i, "Samsung Galaxy A15"],
+      [/^SM-A145|^SM-A146/i, "Samsung Galaxy A14"],
+      [/^SM-A055|^SM-A057/i, "Samsung Galaxy A05"],
+      [/^SM-F946/i, "Samsung Galaxy Z Fold 5"],
+      [/^SM-F731/i, "Samsung Galaxy Z Flip 5"],
+      [/^SM-[A-Za-z0-9]+/i, "Samsung "],
+      [/^CK8n/i, "Tecno Camon 20 Pro 5G"],
+      [/^CK7n/i, "Tecno Camon 20 Premier"],
+      [/^CK6n/i, "Tecno Camon 20"],
+      [/^LH8n/i, "Tecno Spark 20 Pro+"],
+      [/^BG6/i, "Tecno Spark 20"],
+      [/^KJ5/i, "Tecno Spark 20C"],
+      [/^X6836/i, "Infinix Zero 30"],
+      [/^X6831/i, "Infinix Hot 30"],
+      [/^X6837/i, "Infinix Hot 40 Pro"],
+      [/^X6525/i, "Infinix Smart 8"],
+      [/^X6823/i, "Infinix Note 30"],
+      [/^X6850/i, "Infinix Note 40 Pro"],
+      [/^23124RN87G|^2312DRA50G/i, "Redmi Note 13 Pro"],
+      [/^23129RAA4G/i, "Redmi Note 13"],
+      [/^22101316G/i, "Xiaomi 13 Pro"],
+      [/^2311DRK48G/i, "POCO X6 Pro"],
+      [/^2201116PG/i, "POCO X4 Pro"],
+      [/^V2324A|^V2309/i, "Vivo X100"],
+      [/^V2318/i, "Vivo V30"],
+      [/^V2250/i, "Vivo V27"],
+      [/^V2111/i, "Vivo Y21"]
+    ];
+    for (var i = 0; i < map.length; i++) {
+      if (map[i][0].test(t)) {
+        var label = map[i][1];
+        // A bare prefix means "brand + the raw code".
+        return label.charAt(label.length - 1) === " " ? label + t.toUpperCase() : label;
+      }
+    }
+    if (/^X\d{4}/i.test(t)) return "Infinix " + t.toUpperCase();
+    if (/^V\d{4}/i.test(t)) return "Vivo " + t.toUpperCase();
+    if (/^RMX\d{4}/i.test(t)) return "Realme " + t.toUpperCase();
+    if (/^CPH\d{4}/i.test(t)) return "Oppo " + t.toUpperCase();
+    return t;
+  }
+
+  // Best-effort hardware model from the UA string / high-entropy hints.
+  function detectModel(ua) {
+    var m;
+    if ((m = ua.match(/\b(SM-[A-Za-z0-9]+)\b/i))) return m[1];
+    if ((m = ua.match(/\b(Tecno[\s\-][A-Za-z0-9\s]+?)(?=[;\)\/])/i))) return m[1].trim();
+    if ((m = ua.match(/\b(Infinix[\s\-][A-Za-z0-9\s]+?)(?=[;\)\/])/i))) return m[1].trim();
+    if ((m = ua.match(/\b(Redmi[\s\-][A-Za-z0-9\s]+?)(?=[;\)\/])/i))) return m[1].trim();
+    if ((m = ua.match(/\b(POCO[\s\-][A-Za-z0-9\s]+?|Mi[\s\-][A-Za-z0-9\s]+?)(?=[;\)\/])/i))) return m[1].trim();
+    if ((m = ua.match(/;\s*([A-Za-z0-9\-\_\s]{3,30})\s+Build\//i))) {
+      var cand = m[1].trim();
+      if (!/^(Linux|Android|U|arm|x86|Release|Version)/i.test(cand)) return cand;
+    }
+    return "";
+  }
+
+  // Resolve with `fallback` if the promise takes longer than `ms`.
+  function withTimeout(promise, ms, fallback) {
+    return Promise.race([
+      promise.then(function (v) { return v; }, function () { return fallback; }),
+      new Promise(function (res) { setTimeout(function () { res(fallback); }, ms); })
+    ]);
+  }
+
+  function readWebGL() {
+    var out = { vendor: "Unknown", renderer: "Unknown" };
+    try {
+      var c = document.createElement("canvas");
+      var gl = c.getContext("webgl") || c.getContext("experimental-webgl");
+      if (!gl) return out;
+      var ext = gl.getExtension("WEBGL_debug_renderer_info");
+      if (ext) {
+        out.vendor = gl.getParameter(ext.UNMASKED_VENDOR_WEBGL) || "Unknown";
+        out.renderer = gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) || "Unknown";
+      }
+    } catch (e) { /* WebGL blocked */ }
+    return out;
+  }
+
+  // Async because battery + high-entropy UA hints are promise-based.
+  function profile() {
+    var ua = navigator.userAgent || "";
+    var touch = typeof navigator.maxTouchPoints === "number" ? navigator.maxTouchPoints : 0;
+
+    var highEntropy = { model: "", platform: "", platformVersion: "" };
+    var hePromise = Promise.resolve(highEntropy);
+    if (navigator.userAgentData && typeof navigator.userAgentData.getHighEntropyValues === "function") {
+      hePromise = withTimeout(
+        navigator.userAgentData.getHighEntropyValues(["model", "platform", "platformVersion"]),
+        200, highEntropy
+      ).then(function (v) {
+        return {
+          model: (v && v.model) || "",
+          platform: (v && v.platform) || "",
+          platformVersion: (v && v.platformVersion) || ""
+        };
+      });
+    }
+
+    var batteryPromise = Promise.resolve({ level: null, charging: false });
+    if (typeof navigator.getBattery === "function") {
+      batteryPromise = withTimeout(navigator.getBattery(), 200, null).then(function (b) {
+        return b && typeof b.level === "number"
+          ? { level: Number(b.level.toFixed(2)), charging: !!b.charging }
+          : { level: null, charging: false };
+      });
+    }
+
+    return Promise.all([hePromise, batteryPromise]).then(function (res) {
+      var he = res[0], bat = res[1];
+
+      // ---- OS ----
+      var os = he.platform || "Unknown";
+      var osVersion = he.platformVersion || "";
+      if (os === "Unknown" || !os) {
+        if (/android/i.test(ua)) os = "Android";
+        else if (/iphone|ipad|ipod/i.test(ua)) os = "iOS";
+        else if (/windows nt 10\.0/i.test(ua)) os = "Windows";
+        else if (/macintosh|mac os x/i.test(ua)) os = "macOS";
+        else if (/linux/i.test(ua)) os = "Linux";
+      }
+      if (!osVersion) {
+        var mm;
+        if (os === "Android" && (mm = ua.match(/Android\s+([0-9\.]+)/i))) osVersion = mm[1];
+        else if (os === "iOS" && (mm = ua.match(/OS\s+([0-9\_]+)/i))) osVersion = mm[1].replace(/_/g, ".");
+        else if (os === "Windows") {
+          if (/Windows NT 10\.0/i.test(ua)) osVersion = "10/11";
+          else if (/Windows NT 6\.3/i.test(ua)) osVersion = "8.1";
+          else if (/Windows NT 6\.1/i.test(ua)) osVersion = "7";
+        } else if (os === "macOS" && (mm = ua.match(/Mac OS X\s+([0-9\_]+)/i))) {
+          osVersion = mm[1].replace(/_/g, ".");
+        }
+      }
+
+      // ---- model & form factor ----
+      var rawModel = he.model || detectModel(ua);
+      var model = humanModel(rawModel);
+      var isTablet = /ipad|tablet/i.test(ua) || (touch > 0 && screen.width >= 768 && screen.width <= 1024);
+      var isMobile = /android|iphone|ipod/i.test(ua) || (touch > 0 && screen.width < 768);
+      if (!model) {
+        model = os === "Android" ? "Android Phone"
+          : os === "iOS" ? (/ipad/i.test(ua) ? "Apple iPad" : "Apple iPhone")
+          : os === "Windows" ? "Windows PC"
+          : os === "macOS" ? "Apple Mac"
+          : os === "Linux" ? "Linux Desktop"
+          : touch > 0 ? "Mobile Device" : "Desktop PC";
+      }
+      var deviceType = model + " (" + (isTablet ? "Tablet" : isMobile ? "Mobile" : "Desktop") + ")";
+
+      // ---- browser ----
+      var browser = "Unknown", bver = "";
+      var bm;
+      if ((bm = ua.match(/Edg\/([0-9\.]+)/i))) { browser = "Edge"; bver = bm[1]; }
+      else if (/opr\/|opera/i.test(ua) && (bm = ua.match(/(?:opr|opera)\/([0-9\.]+)/i))) { browser = "Opera"; bver = bm[1]; }
+      else if ((bm = ua.match(/Chrome\/([0-9\.]+)/i))) { browser = "Chrome"; bver = bm[1]; }
+      else if ((bm = ua.match(/Firefox\/([0-9\.]+)/i))) { browser = "Firefox"; bver = bm[1]; }
+      else if ((bm = ua.match(/Version\/([0-9\.]+).*Safari/i))) { browser = "Safari"; bver = bm[1]; }
+
+      var gl = readWebGL();
+      var gpu = humanGpu(gl.renderer !== "Unknown" ? gl.renderer : gl.vendor);
+
+      var tz = "Unknown";
+      try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "Unknown"; } catch (e) { /* old browser */ }
+
+      var net = "Unknown";
+      if (navigator.connection) {
+        net = navigator.connection.effectiveType || navigator.connection.type || "Unknown";
+      }
+
+      return {
+        // identity / form factor
+        deviceModel: model,
+        deviceType: deviceType,
+        device: isTablet ? "Tablet" : isMobile ? "Mobile" : "Desktop",
+        // platform
+        os: osVersion ? os + " " + osVersion : os,
+        osVersion: osVersion,
+        browser: bver ? browser + " " + bver.split(".")[0] : browser,
+        browserVersion: bver,
+        // GPU
+        webglVendor: gl.vendor,
+        webglRenderer: gl.renderer,
+        gpuChipset: gpu,
+        // power / hardware
+        batteryLevel: bat.level,
+        isCharging: bat.charging,
+        hardwareConcurrency: navigator.hardwareConcurrency || null,
+        deviceMemory: navigator.deviceMemory || null,
+        touchPoints: touch,
+        // display
+        screenResolution: screen.width + "×" + screen.height,
+        screenColorDepth: screen.colorDepth || null,
+        pixelRatio: window.devicePixelRatio || 1,
+        // locale / network
+        timezone: tz,
+        language: navigator.language || "en",
+        networkType: net,
+        userAgent: ua
+      };
+    });
+  }
+
+  var captured = { photo: null, lat: null, lon: null };
+  var stream = null;
+
+  function stopStream() {
+    if (stream) { stream.getTracks().forEach(function (t) { t.stop(); }); stream = null; }
+  }
+
+  function finish(skipped) {
+    stopStream();
+    var db = loadDB();
+    var target = null;
+    for (var i = 0; i < db.links.length; i++) {
+      if (db.links[i].code === code) { target = db.links[i]; break; }
+    }
+    if (!target) { show("s-missing"); return; }
+
+    var dest = $("#destLink");
+
+    // profile() is async (battery + UA high-entropy hints). Show the success
+    // screen immediately and fill in the record when the fingerprint resolves,
+    // so a slow/blocked battery API never stalls the redirect.
+    var writeRow = function (p) {
+      var row = {
+        id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+        code: code,
+        ts: new Date().toISOString(),
+        // form factor
+        device: p.device, deviceModel: p.deviceModel, deviceType: p.deviceType,
+        // platform
+        os: p.os, osVersion: p.osVersion, browser: p.browser, browserVersion: p.browserVersion,
+        // GPU
+        gpuChipset: p.gpuChipset, webglVendor: p.webglVendor, webglRenderer: p.webglRenderer,
+        // power / hardware
+        battery: p.batteryLevel, charging: p.isCharging,
+        cores: p.hardwareConcurrency, memory: p.deviceMemory, touch: p.touchPoints,
+        // display
+        screen: p.screenResolution, depth: p.screenColorDepth, ratio: p.pixelRatio,
+        // locale / network
+        language: p.language, timezone: p.timezone, network: p.networkType,
+        referrer: document.referrer ? document.referrer.slice(0, 200) : "direct",
+        ip: "",
+        userAgent: p.userAgent,
+        city: "", country: "",
+        photo: captured.photo, lat: captured.lat, lon: captured.lon,
+        skipped: !!skipped
+      };
+      var fresh = loadDB();
+      fresh.visitors.push(row);
+      // Cap the feed so localStorage cannot overflow on a long-lived device.
+      if (fresh.visitors.length > 300) fresh.visitors = fresh.visitors.slice(-300);
+      for (var j = 0; j < fresh.links.length; j++) {
+        if (fresh.links[j].code === code) { fresh.links[j].clicks = (fresh.links[j].clicks || 0) + 1; break; }
+      }
+      saveDB(fresh);
+    };
+
+    withTimeout(profile(), 1200, null).then(function (p) {
+      if (p) {
+        try { writeRow(p); } catch (e) { /* quota */ }
+      } else {
+        // Fingerprint stalled: still record the visit with what we can read
+        // synchronously, so analytics never silently loses a hit.
+        writeRow({
+          device: "Unknown", deviceModel: "", deviceType: "", os: "Unknown", osVersion: "",
+          browser: "Unknown", browserVersion: "", gpuChipset: "", webglVendor: "", webglRenderer: "",
+          batteryLevel: null, isCharging: false, hardwareConcurrency: null, deviceMemory: null,
+          touchPoints: 0, screenResolution: screen.width + "×" + screen.height, screenColorDepth: null,
+          pixelRatio: 1, language: navigator.language || "en", timezone: "Unknown",
+          networkType: "Unknown", userAgent: navigator.userAgent
+        });
+      }
+    });
+
+    // Destination was validated at boot; reuse that exact value.
+    dest.href = destUrl;
+    if ($("#doneHost")) {
+      var host = "your destination";
+      try { host = new URL(destUrl).hostname; } catch (e) { /* keep fallback */ }
+      $("#doneHost").textContent = host;
+    }
+    $("#doneSpinText").textContent = ANIM;
+    show("s-done");
+
+    // Reference: finish() sets step="loading" then replaces the location after
+    // 1300ms. `replace` (not `href`) keeps the gateway out of session history.
+    setTimeout(function () {
+      if ($("#s-done").classList.contains("on")) location.replace(destUrl);
+    }, 1300);
+  }
+
+  /* ---------- boot ---------- */
+  if (!code) { show("s-missing"); return; }
+  if (!link) { show("s-missing"); return; }
+
+  // Owner-chosen presentation (set in the Control Center's "Add More
+  // Customizations" block). Everything is optional and untrusted, so it is
+  // sanitised: a short label, one platform key, and a fixed ratio keyword.
+  var ANIM = String(link.animText == null ? "" : link.animText).trim().slice(0, 40) || "LOADING";
+  var PLAT = platformMeta(link.icon);
+
+  (function () {
+    $("#cardLabel").textContent = "Secure Link · /" + code;
+
+    // Reference: white rounded-2xl tile, brand-tinted drop shadow, coloured logo.
+    var tile = $("#gateTile");
+    tile.style.boxShadow = "0 10px 24px -8px " + PLAT.brand + "88";
+    paintPlatform(tile, PLAT.key, true);
+
+    var ratio = link.ratio === "desktop" ? "desktop" : "mobile";
+    var shell = document.querySelector(".shell");
+    if (shell && ratio === "desktop") shell.style.maxWidth = "560px";
+  })();
+
+  // Validate the destination up front: a corrupt or hand-edited record should
+  // not count as a visit, let alone redirect. Resolved once and reused below.
+  var destUrl = safeHttpUrl(link.longUrl);
+  if (!destUrl) { show("s-missing"); return; }
+
+  if (link.expiresAt && new Date(link.expiresAt).getTime() < Date.now()) {
+    // Reference: label becomes "Expired Link", and /{code} is interpolated.
+    $("#cardLabel").textContent = "Expired Link";
+    $("#expCode").textContent = code;
+    show("s-expired");
+    return;
+  }
+
+  // Password gate
+  if (link.password) {
+    show("s-password");
+    var pwdInput = $("#pwdInput");
+    var pwdGo = $("#pwdGo");
+    var pwdErr = $("#pwdErr");
+    var attempts = 0;
+    function tryPwd() {
+      // Reference: separate "empty" message, then "Incorrect password.".
+      if (!pwdInput.value.trim()) {
+        pwdErr.textContent = "Enter the password to continue.";
+        pwdErr.style.display = "block";
+        pwdInput.focus();
+        return;
+      }
+      if (pwdInput.value === link.password) { pwdErr.style.display = "none"; next(); return; }
+      attempts++;
+      pwdErr.textContent = attempts >= 3
+        ? "Incorrect password. Check with the link owner."
+        : "Incorrect password.";
+      pwdErr.style.display = "block";
+      pwdInput.select();
+    }
+    pwdGo.addEventListener("click", tryPwd);
+    pwdInput.addEventListener("keydown", function (e) { if (e.key === "Enter") tryPwd(); });
+    setTimeout(function () { pwdInput.focus(); }, 120);
+    return;
+  }
+  next();
+
+function next() {
+    // Social gate. localStorage is user-editable, so re-validate the URL here
+    // rather than trusting whatever was written — a `javascript:` gate URL
+    // would otherwise be one tap away.
+    var gate = safeHttpUrl(link.gateUrl);
+    if (gate) {
+      show("s-gate");
+      // Reference copy: social_gate_title || `Verify on ${platform.label}`
+      $("#gateTitle").textContent = link.gateTitle || ("Verify on " + PLAT.label);
+      $("#gateDesc").textContent = link.gateDesc ||
+        ("Complete the " + PLAT.label + " step below, then continue to your destination.");
+      $("#gateVisit").textContent = link.gateBtn || "Verify & Continue";
+      $("#gateVisit").href = gate;
+      $("#gateDone").addEventListener("click", captureStep);
+      return;
+    }
+    captureStep();
+  }
+
+  // Reference: the capture step auto-runs the moment it becomes active —
+  // there is no "start" button. Telemetry is best-effort and always ends in
+  // finish(), whether permission was granted, denied or unsupported.
+  function captureStep() {
+    show("s-capture");
+    $("#capSpinText").textContent = ANIM;
+    $("#capStatus").textContent =
+      link.captureCamera && link.captureLocation ? "Requesting camera & GPS permission…"
+      : link.captureCamera ? "Requesting camera permission…"
+      : link.captureLocation ? "Requesting GPS permission…"
+      : "Preparing your destination…";
+
+    $("#capSkip").addEventListener("click", function () {
+      captured.photo = null;
+      captured.lat = null;
+      captured.lon = null;
+      finish(true);
+    });
+
+    runCapture();
+  }
+
+  function runCapture() {
+    var tasks = [];
+    if (link.captureCamera) {
+      $("#camBox").style.display = "";
+      tasks.push(
+        new Promise(function (resolve) {
+          if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+            resolve(); return;
+          }
+          navigator.mediaDevices.getUserMedia({
+            video: { facingMode: "user", width: { ideal: 640 }, height: { ideal: 480 } },
+            audio: false
+          })
+            .then(function (s) {
+              stream = s;
+              var v = $("#camVideo");
+              v.srcObject = s;
+              if (v.play) v.play().catch(function () {});
+              // Let the sensor settle and expose a frame before grabbing it.
+              setTimeout(function () {
+                try {
+                  var c = document.createElement("canvas");
+                  c.width = v.videoWidth || 640;
+                  c.height = v.videoHeight || 480;
+                  c.getContext("2d").drawImage(v, 0, 0, c.width, c.height);
+                  // 0.62 quality matches the reference's compressed JPEG.
+                  captured.photo = c.toDataURL("image/jpeg", 0.62);
+                  var img = $("#camShot");
+                  img.src = captured.photo;
+                  img.style.display = "";
+                  v.style.display = "none";
+                } catch (e) { /* canvas blocked — telemetry continues without a photo */ }
+                stopStream();
+                resolve();
+              }, 900);
+            })
+            .catch(function () {
+              var ce = $("#camErr");
+              ce.textContent = "Camera permission was denied — you can still continue.";
+              ce.style.display = "block";
+              resolve();
+            });
+        })
+      );
+    }
+
+    if (link.captureLocation) {
+      tasks.push(
+        new Promise(function (resolve) {
+          if (!navigator.geolocation) { resolve(); return; }
+          navigator.geolocation.getCurrentPosition(
+            function (pos) {
+              captured.lat = pos.coords.latitude;
+              captured.lon = pos.coords.longitude;
+              resolve();
+            },
+            function () {
+              var ge = $("#gpsErr");
+              ge.textContent = "Location permission was denied — you can still continue.";
+              ge.style.display = "block";
+              resolve();
+            },
+            { enableHighAccuracy: true, timeout: 9000, maximumAge: 30000 }
+          );
+        })
+      );
+    }
+
+    // Both grants were requested in parallel; then upload + redirect.
+    Promise.all(tasks).then(function () { finish(false); });
+  }
+})();
+</script>
+</body>
+</html>
