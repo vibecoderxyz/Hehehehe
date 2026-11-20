@@ -1,0 +1,3 @@
+Merged project: updated UI from ohhmyyes-ui-gateway-only.zip plus backend/API/deployment files from working.zip.
+UI source components and static assets were preserved from the UI package.
+Backend API routes, auth, database, geo, validation, redirect route, Railway config and standalone verification files were added from working.zip.
