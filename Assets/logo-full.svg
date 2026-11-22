@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 72" width="320" height="72" role="img" aria-label="CIPHER BVG">
+  <defs>
+    <linearGradient id="edge" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F2F4F7"/>
+      <stop offset=".28" stop-color="#C7CBD1"/>
+      <stop offset=".54" stop-color="#868D96"/>
+      <stop offset=".76" stop-color="#DDE1E6"/>
+      <stop offset="1" stop-color="#9AA1AA"/>
+    </linearGradient>
+    <linearGradient id="plate" x1=".1" y1="0" x2=".9" y2="1">
+      <stop offset="0" stop-color="#242930"/>
+      <stop offset=".42" stop-color="#14171C"/>
+      <stop offset="1" stop-color="#0A0C0F"/>
+    </linearGradient>
+    <linearGradient id="arc" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFC247"/>
+      <stop offset=".55" stop-color="#FF8A00"/>
+      <stop offset="1" stop-color="#FFB03A"/>
+    </linearGradient>
+    <linearGradient id="core" x1="0" y1="0" x2=".35" y2="1">
+      <stop offset="0" stop-color="#FFE9BE"/>
+      <stop offset=".42" stop-color="#FFC247"/>
+      <stop offset="1" stop-color="#FF8A00"/>
+    </linearGradient>
+    <linearGradient id="sheen" x1="0" y1="0" x2=".7" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity=".26"/>
+      <stop offset=".55" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="word" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F5F5F5"/>
+      <stop offset=".62" stop-color="#DFE3E8"/>
+      <stop offset="1" stop-color="#A9AFB7"/>
+    </linearGradient>
+    <linearGradient id="rule" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FFC247" stop-opacity=".85"/>
+      <stop offset=".7" stop-color="#FF8A00" stop-opacity=".25"/>
+      <stop offset="1" stop-color="#FF8A00" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="oct">
+      <path d="M42.72 6.13 57.87 21.28v21.44L42.72 57.87H21.28L6.13 42.72V21.28L21.28 6.13Z"/>
+    </clipPath>
+  </defs>
+
+  <!-- emblem, scaled and centred on the 72px bed -->
+  <g transform="translate(4,4)">
+    <path d="M42.72 6.13 57.87 21.28v21.44L42.72 57.87H21.28L6.13 42.72V21.28L21.28 6.13Z"
+          fill="url(#plate)" stroke="url(#edge)" stroke-width="2.1" stroke-linejoin="round"/>
+    <g clip-path="url(#oct)"><path d="M-8 -8H40L-8 40Z" fill="url(#sheen)"/></g>
+    <path d="M40.4 11.9 52.1 23.6v16.8L40.4 52.1H23.6L11.9 40.4V23.6L23.6 11.9Z"
+          fill="none" stroke="#C7CBD1" stroke-opacity=".26" stroke-width=".9" stroke-linejoin="round"/>
+    <path d="M45 23.56A15.5 15.5 0 1 0 45 40.44"
+          fill="none" stroke="#FF8A00" stroke-opacity=".30" stroke-width="6.2" stroke-linecap="round"/>
+    <path d="M45 23.56A15.5 15.5 0 1 0 45 40.44"
+          fill="none" stroke="url(#arc)" stroke-width="2.8" stroke-linecap="round"/>
+    <path d="M32 22.4 38.2 32 32 41.6 25.8 32Z" fill="url(#core)"/>
+    <path d="M32 22.4 38.2 32H32Z" fill="#FFF4D6" fill-opacity=".6"/>
+    <path d="M32 22.4 38.2 32 32 41.6 25.8 32Z" fill="none" stroke="#8A4E00" stroke-opacity=".4" stroke-width=".7"/>
+  </g>
+
+  <!-- wordmark -->
+  <text x="86" y="34" font-family="Inter, 'Helvetica Neue', Arial, sans-serif" font-size="21.5"
+        font-weight="700" letter-spacing="4.4" fill="url(#word)">CIPHER</text>
+  <text x="86" y="56" font-family="Inter, 'Helvetica Neue', Arial, sans-serif" font-size="21.5"
+        font-weight="700" letter-spacing="4.4" fill="#FF8A00">BVG</text>
+
+  <!-- golden hairline under the lockup -->
+  <rect x="87" y="62" width="150" height="1.4" fill="url(#rule)"/>
+</svg>

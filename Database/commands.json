@@ -1,0 +1,39 @@
+{
+  "commands": [
+    {
+      "name": "help",
+      "description": "Show available commands",
+      "usage": "/help",
+      "example": "/help",
+      "level": "public"
+    },
+    {
+      "name": "pair",
+      "description": "Show pairing instructions and status",
+      "usage": "/pair",
+      "example": "/pair",
+      "level": "registered"
+    },
+    {
+      "name": "status",
+      "description": "Show panel & WhatsApp session status",
+      "usage": "/status",
+      "example": "/status",
+      "level": "registered"
+    },
+    {
+      "name": "profile",
+      "description": "Show your account profile",
+      "usage": "/profile",
+      "example": "/profile",
+      "level": "registered"
+    },
+    {
+      "name": "cmdlist",
+      "description": "List all registered commands",
+      "usage": "/cmdlist",
+      "example": "/cmdlist",
+      "level": "registered"
+    }
+  ]
+}

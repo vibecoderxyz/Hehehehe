@@ -1,0 +1,35 @@
+# ── runtime ───────────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ── secrets (never commit) ────────────────────────────────
+.env
+.env.local
+.env.*.local
+Database/.pepper
+
+# ── runtime state, recreated automatically on boot ────────
+# (Database/owner.json, Database/akses.json and Database/commands.json
+#  are SEED CONFIG and must stay tracked.)
+Database/sessions.json
+Database/whatsapp-auth/
+Database/whatsapp-sessions.json
+Database/pairing.json
+Database/user.json
+Database/audit.json
+auth/
+sessions/
+sessions.json
+backups/
+!backups/.gitkeep
+uploads/*
+!uploads/.gitkeep
+
+# ── OS / editor noise ─────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
